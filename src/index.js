@@ -15,8 +15,20 @@ project.addItem(item3);
 const sc = new ScreenControler();
 sc.drawProject(project);
 
+const dialog = document.querySelector('#addItemDialog');
+
 const addItemBtn = document.querySelector('.addItem');
 addItemBtn.addEventListener('click', () => {
-    const content = document.querySelector('.conent');
-    content.textContent = '';
+    dialog.showModal();
 })
+
+dialog.addEventListener('close', () => {
+    const title = document.querySelector('#title').value;
+    const description = document.querySelector('#desc').value;
+    const dueDate = document.querySelector('#dueDate').value;
+    const priority = document.querySelector('#priority').value;
+    const item = new Item(title, description, dueDate, priority);
+    project.addItem(item);
+    sc.drawProject(project);
+})
+

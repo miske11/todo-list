@@ -15,6 +15,8 @@ export const ScreenControler =  class {
     }
 
     drawProject(project) {
+        const content = document.querySelector('.content');
+        content.textContent = '';
         for (const item of project.items) {
             this.drawItem(item);
         }
