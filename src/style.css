@@ -2,3 +2,12 @@
     display: flex;
     gap: 16px;
 }
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.left-side {
+    background-color: blueviolet;
+}

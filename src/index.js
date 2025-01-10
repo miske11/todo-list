@@ -3,32 +3,53 @@ import Project from "./project.js";
 import "./style.css";
 import { ScreenControler } from "./screen.js";
 
-const item1 = new Item('test', 'testing item', '5.1.2025', 'low');
-const item2 = new Item('test2', 'testing item2', '5.1.2025', 'low');
-const item3 = new Item('test3', 'testing item3', '5.1.2025', 'high');
+const projects = [];
 
-const project = new Project('my project', 'this is just a test project');
-project.addItem(item1);
-project.addItem(item2);
-project.addItem(item3);
+const project = new Project("my project", "this is just an example project");
+const item = new Item('ssad', 'dsad', 'dsad', 'dsad');
+project.addItem(item);
+
+projects.push(project);
+
+export const state = {
+  selectedProject: projects[0],
+};
 
 const sc = new ScreenControler();
-sc.drawProject(project);
+sc.drawProjectTitle(project);
+sc.drawProjectItems(project);
 
-const dialog = document.querySelector('#addItemDialog');
+const itemDialog = document.querySelector("#addItemDialog");
 
-const addItemBtn = document.querySelector('.addItem');
-addItemBtn.addEventListener('click', () => {
-    dialog.showModal();
-})
+const addItemBtn = document.querySelector(".addItem");
 
-dialog.addEventListener('close', () => {
-    const title = document.querySelector('#title').value;
-    const description = document.querySelector('#desc').value;
-    const dueDate = document.querySelector('#dueDate').value;
-    const priority = document.querySelector('#priority').value;
-    const item = new Item(title, description, dueDate, priority);
-    project.addItem(item);
-    sc.drawProject(project);
-})
+addItemBtn.addEventListener("click", () => {
+  itemDialog.showModal();
+});
 
+itemDialog.addEventListener("close", () => {
+  const title = document.querySelector("#title").value;
+  const description = document.querySelector("#desc").value;
+  const dueDate = document.querySelector("#dueDate").value;
+  const priority = document.querySelector("#priority").value;
+  const item = new Item(title, description, dueDate, priority);
+
+  state.selectedProject.addItem(item);
+  sc.drawProjectItems(state.selectedProject);
+});
+
+const projectDialog = document.querySelector("#addProjectDialog");
+
+const addProjectBtn = document.querySelector(".addProject");
+addProjectBtn.addEventListener("click", () => {
+  projectDialog.showModal();
+});
+
+projectDialog.addEventListener("close", () => {
+  const title = document.querySelector("#projTitle").value;
+  const description = document.querySelector("#projDesc").value;
+  const project = new Project(title, description);
+  projects.push(project); 
+  sc.displayProjectTitles(projects);
+  console.log(project);
+});
